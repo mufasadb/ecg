@@ -26,7 +26,7 @@ staff = [
             pick: true,
             give: false
         },
-        rewardQaunt: 1,
+        rewardQuant: 1,
         tier: 1,
         retaliation: {
             clipAll: false,
@@ -65,7 +65,7 @@ staff = [
             pick: false,
             give: true
         },
-        rewardQaunt: 2,
+        rewardQuant: 2,
         tier: 2,
         retaliation: {
             clipAll: false,
@@ -104,7 +104,7 @@ staff = [
             pick: false,
             give: true
         },
-        rewardQaunt: 2,
+        rewardQuant: 2,
         tier: 2,
         retaliation: {
             clipAll: false,
@@ -143,7 +143,7 @@ staff = [
             pick: true,
             give: false
         },
-        rewardQaunt: 2,
+        rewardQuant: 2,
         tier: 3,
         retaliation: {
             clipAll: false,
@@ -182,7 +182,7 @@ staff = [
             pick: false,
             give: true
         },
-        rewardQaunt: 1,
+        rewardQuant: 1,
         tier: 4,
         retaliation: {
             clipAll: true,
