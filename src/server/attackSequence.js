@@ -80,7 +80,7 @@ function beatable(primaryAtts, remainingAtts, enemyAtts) {
             primaryLeft = primaryLeft - enemyAtts[att]
             if (primaryLeft < 0) {
                 let remainingLeft = 0
-                for (atty in remainingAtts) { remainingLeft = remainingLeft + remaining[atty] }
+                for (atty in remainingAtts) { remainingLeft = remainingLeft + remainingAtts[atty] }
                 remainingLeft = remainingLeft + primaryLeft
                 if (remainingLeft < 0) {
                     return {

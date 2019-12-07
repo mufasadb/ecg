@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
+import Card from './Card.js';
 export default class App extends Component {
   state = {
     user: {
@@ -92,10 +93,11 @@ export default class App extends Component {
     }
     return (
       <div>
+        <Card />
         {name ? <h1>{`Hello ${name}`}</h1> : <h1>Loading.. please wait!</h1>}
         <button onClick={() => this.newUser()}>new User</button>
         <div><h3>staff</h3>{staffObj}</div>
-        <div className='cardContainer'><h3>cards</h3>{cardObj}</div>
+        <div className='cardsContainer'><h3>cards</h3>{cardObj}</div>
         <div className='selectedContainer'>
           <h3>selected cards</h3>
         </div>
