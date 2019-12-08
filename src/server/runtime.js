@@ -1,6 +1,7 @@
 const staffGen = require('./staffGen');
 const cardGen = require('./cardGen');
-const cardDo = require(`./cardHandler`)
+const cardDo = require(`./cardHandler`);
+const db = require(`./dbinteraction`);
 
 let staff = staffGen.staff();
 for (member in staff) {
@@ -20,11 +21,24 @@ function getChoices(staffMemberID) {
     }
     return choices
 }
-function changeDeck(staffMemberID, selectedID){
+function doChoice(userKey, staffMemberID, choiceIds){
     let activeMember = findStaff(staffMemberID)
+    db.findUserByKey(userKey).then(results => {
+        let user = results.user
+        for(card in choiceIds){
+            user.cards.push(card)
+        }
+        for(card in choiceIds){
+            activeMember.cards.splice(card,1)
+        }
+        console.log('user length and staff length')
+        console.log(user.cards.length)
+        console.log(activeMember.cards.count)
+    }).catch(err => {console.log(err)})
 }
 
-console.log(getChoices(1));
+console.log(getChoices(2));
+console.log(doChoice('cba321', 2, [getChoices(2)[1]]))
 
 function findStaff(staffMemberID){
     let memberIndex = staff.findIndex(member => {
@@ -34,12 +48,7 @@ function findStaff(staffMemberID){
     });
     return staff[memberIndex]
 }
-function findCard(staff,cardID){
-    let cardIndex = staff.cards.findIndex(card => {
-        return card.id === cardID
-    });
-    return card[cardIndex]
-}
+
 
 module.exports = {
     content: function () {
@@ -47,5 +56,8 @@ module.exports = {
     },
     rewardChoose: function (staffMemberID) {
         getChoices(staffMemberID)
+    },
+    doChoice: function (userKey, staffMemberID, choiceIds){
+        doChoice(userKey, staffMemberID, choiceIds)
     }
 };
