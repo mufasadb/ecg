@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './arrow.png';
-import heart from './heart.png';
+import logo from './assets/arrow.png';
 class Card extends Component {
     constructor() {
         return super();
@@ -9,9 +8,17 @@ class Card extends Component {
         const explicitObject = "";
         let implicitObject = "";
         let count = 2;
-        for(let i = 0; i < count; i++){
-            implicitObject = implicitObject + "<img src={logo}/>"
-        }
+
+    implicitObject = Object.entries(this.props.card.implicit).reduce((list, item) => {
+      const icons = [];
+      for (let i = 0; i < item[1]; i++) {
+        icons.push(<Icon key={`${item[0]}-${i}`} att={item[0]}/>)
+      }
+      return list.concat(icons);
+    }, []);
+    
+
+
         return (
             <div>
                 <div className="cardConatiner">

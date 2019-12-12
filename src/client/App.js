@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './app.css';
-import ReactImage from './react.png';
 import Card from './Card.js';
 export default class App extends Component {
   state = {
@@ -76,14 +75,12 @@ export default class App extends Component {
     })
   }
   render() {
+
     const name = this.state.user.name;
     let staffObj = "";
     let cardObj = "there isn't any cards";
     if (this.state.cards.length > 0) {
-      cardObj = this.state.cards.map((card, index) => <div className="card">
-        <span className={isSelected(card)}> {card.name}</span>
-        <button key={card.id} className="card" onClick={() => { this.select(index) }}>{isSelected(card)}</button>
-      </div>)
+      cardObj = this.state.cards.map((card, index) => <Card card={card} />)
     }
     if (this.state.staff[0]) {
       staffObj = this.state.staff.map((member) =>
