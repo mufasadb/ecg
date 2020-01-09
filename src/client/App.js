@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './app.css';
 import Card from './Card.js';
+import NewName from './NameForm';
+import UserSelect from './UserSelect';
+import Button from 'react-bootstrap/Button';
 export default class App extends Component {
   state = {
     user: {
       name: '',
-      id: 'test',
+      id: '',
+      key: ''
     },
     cards: [],
     staff: []
@@ -46,14 +50,18 @@ export default class App extends Component {
     }).then(this.drawUpdatedPage())
   }
   getUserCards() {
-    fetch('/api/getUserCards', { header: { key: 'abc123' } })
-      .then(res => res.json())
-      .then(cards => (this.setState({ cards })))
+    if (this.state.user.key !== '') {
+      fetch('/api/getUserCards', { header: { key: this.state.key } })
+        .then(res => res.json())
+        .then(cards => (this.setState({ cards })))
+    }
   }
   getUser() {
-    fetch('/api/getUser', { header: { key: '123cba' } })
-      .then(res => res.json())
-      .then((user) => (this.setState({ user })))
+    if (this.state.user.key !== '') {
+      fetch('/api/getUser', { header: { key: this.state.key } })
+        .then(res => res.json())
+        .then((user) => (this.setState({ user })))
+    }
   }
   getStaff() {
     fetch('/api/getStaff', {
@@ -63,17 +71,13 @@ export default class App extends Component {
       .then(staff => (this.setState({ staff }))
       );
   }
-  newUser() {
-    fetch('/api/newUser', {
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        name: 'TestyBoi'
-      })
-    })
+  setKey(key) {
+    this.setState({
+      key: key
+    });
+    this.drawUpdatedPage
   }
+
   render() {
 
     const name = this.state.user.name;
@@ -85,14 +89,14 @@ export default class App extends Component {
     if (this.state.staff[0]) {
       staffObj = this.state.staff.map((member) =>
         <div>{member.name}
-          <button className='staff' onClick={() => { this.attack(member.id) }} key={member.id}> Attack </button>
+          <Button className='staff' onClick={() => { this.attack(member.id) }} key={member.id}> Attack </Button>
         </div>)
     }
     return (
       <div>
         <Card />
-        {name ? <h1>{`Hello ${name}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <button onClick={() => this.newUser()}>new User</button>
+        {name ? <h1>{`Hello ${name}`}</h1> : <div><h1>We Havn't Met you yet!</h1> <NewName /></div>}
+        <UserSelect setKey={() => this.setKey(key)} />
         <div><h3>staff</h3>{staffObj}</div>
         <div className='cardsContainer'><h3>cards</h3>{cardObj}</div>
         <div className='selectedContainer'>

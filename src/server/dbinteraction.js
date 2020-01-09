@@ -11,7 +11,7 @@ let userSchema = new mongoose.Schema({
 
 let User = mongoose.model('User', userSchema);
 let id = 0
-const isOffline = true
+const isOffline = false
 
 const offlineUser = {
     name: "testGuy",
@@ -32,16 +32,33 @@ async function userGet(key) {
         console.log(users)
     });
 }
-async function findUserByKey(key){
+async function findUserByKey(key) {
     let response = {}
-    if(isOffline){
+    if (isOffline) {
         response.status = '200'
         response.user = offlineUser
-    }else{
-        User.find({}, (err, users) => {
-            console.log(users)
+    } else {
+        User.find({ name: "name" }, (err, users) => {
+            // console.log(users)
         });//TODO CHECK IF THIS WORKS
     }
+    return response
+}
+async function userList() {
+    let response = {}
+    let list = []
+    await User.find({}, (err, users) => {
+        for (user of users) {
+            list.push(
+                {
+                    name: user.name,
+                    key: user.key
+                }
+            )
+        }
+    })
+    response.status = '200'
+    response.list = list
     return response
 }
 async function userSave(data) {
@@ -62,8 +79,11 @@ async function userSave(data) {
 module.exports = {
     userSave: async function (user) {
         return await userSave(user)
-    }, 
+    },
     findUserByKey: function (key) {
         return findUserByKey(key)
+    },
+    userList: async function () {
+        return await userList()
     }
 };

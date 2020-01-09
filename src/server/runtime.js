@@ -37,13 +37,9 @@ function doChoice(userKey, staffMemberID, choiceIds){
     }).catch(err => {console.log(err)})
 }
 
-console.log(getChoices(2));
-console.log(doChoice('cba321', 2, [getChoices(2)[1]]))
 
 function findStaff(staffMemberID){
     let memberIndex = staff.findIndex(member => {
-        console.log(member.id)
-        console.log(staffMemberID)
         return member.id === staffMemberID
     });
     return staff[memberIndex]

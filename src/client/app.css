@@ -147,6 +147,11 @@ span.deselect{
   filter: FlipH;
   -ms-filter: "FlipH";
 }
+.icon{
+  height:.2em;
+  width:.2em;
+  background: transparent;
+}
 .darkType{
   margin-top: 20%;
   margin-left: 15%;

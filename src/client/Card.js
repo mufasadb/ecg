@@ -5,18 +5,21 @@ class Card extends Component {
         return super();
     }
     render() {
+        function doAttributes(attributes){
+            let results = Object.entries(attributes).reduce((list, item) => {
+                const icons = [];
+                for (let i = 0; i < item[1]; i++) {
+                  icons.push(<Icon key={`${item[0]}-${i}`} att={item[0]}/>)
+                }
+                return list.concat(icons);
+              }, []);
+              return results
+        }
         const explicitObject = "";
-        let implicitObject = "";
         let count = 2;
-
-    implicitObject = Object.entries(this.props.card.implicit).reduce((list, item) => {
-      const icons = [];
-      for (let i = 0; i < item[1]; i++) {
-        icons.push(<Icon key={`${item[0]}-${i}`} att={item[0]}/>)
-      }
-      return list.concat(icons);
-    }, []);
-    
+        // let implicitObject = (this.props.card ? doAttributes(this.props.card.implicit) : "")
+        let implicitObject = (this.props.card ? console.log(`logging implicit ${this.props.card.name}`) : "")
+        
 
 
         return (

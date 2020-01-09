@@ -36,5 +36,5 @@ class Card extends Component {
             src = wild
             break;
         }
-        return(<div key={this.props.key}><img src={src}/></div>)
+        return(<div className="icon" key={this.props.key}><img src={src}/></div>)
     }
